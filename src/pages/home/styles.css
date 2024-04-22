@@ -1,0 +1,44 @@
+.conteudo {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.background {
+    margin-top: 4rem;
+    height: 80vh;
+    position: absolute;
+    left: -15%;
+    filter: opacity(0.3);
+}
+
+.info {
+    width: 60%;
+    margin-right: 3rem;
+    margin-top: 2rem;
+    color: white;
+}
+
+input {
+    border: 1px solid #999999;
+    border-radius: 22px;
+    min-width: 250px;
+    width: 80%;
+    margin-right: 12px;
+    background: transparent;
+    font-size: 18px;
+    color: whitesmoke;
+    padding: 10px;
+}
+
+button {
+    border: 1px solid #999999;
+    border-radius: 22px;
+    margin-right: 12px;
+    background: #2d333b;
+    font-size: 18px;
+    color: whitesmoke;
+    padding: 10px;
+    cursor: pointer;
+}
