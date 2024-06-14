@@ -40,5 +40,47 @@ button {
     font-size: 18px;
     color: whitesmoke;
     padding: 10px;
+    padding-left: 32px;
+    padding-right: 32px;
     cursor: pointer;
+}
+
+.perfil {
+    display: flex;
+    flex-direction: row;
+    margin: 40px 0;
+}
+
+.profile {
+    width: 128px;
+    height: 128px;
+    border-radius: 64px;
+    border: 1px solid whitesmoke;
+    margin-right: 32px;
+}
+
+.perfil h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #999999;
+}
+
+.perfil span {
+    display: block;
+    margin: 0;
+    font-size: 24px;
+    color: #999999;
+}
+
+.perfil p {
+    font-size: 14px;
+    color: #999999;
+    margin: 20px 0 0 0;
+}
+
+.repositorio {
+    font-size: 32px;
+    color: white;
+    margin: 12px 0;
+    text-align: center;
 }
