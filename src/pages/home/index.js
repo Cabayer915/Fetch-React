@@ -1,9 +1,36 @@
+import { useState } from "react";
 import { Header } from "../../components/Header";
 import background from "../../assets/background.svg";
-import ItemList from '../../components/ItemList/index';
+import ItemList from "../../components/ItemList/index";
 import "./styles.css";
 
 function App() {
+  const [user, setUser] = useState("");
+  const [currentUser, currentSetUser] = useState(null);
+  const [repo, setRepo] = useState(null);
+
+  const handleGetData = async () => {
+    try {
+      const userData = await fetch(`https://api.github.com/users/${user}`);
+      const newUser = await userData.json();
+
+      console.log(newUser);
+
+      if (newUser.name) {
+        const { avatar_url, name, bio, login } = newUser;
+        currentSetUser({ avatar_url, name, bio, login });
+
+        const repoData = await fetch(`https://api.github.com/users/${user}/repos`);
+        const newRepo = await repoData.json();
+        if (newRepo.length) {
+          setRepo(newRepo);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div className="App">
       <Header />
@@ -11,33 +38,44 @@ function App() {
         <img src={background} className="background" alt="background app" />
         <div className="info">
           <div>
-            <input name="usuario" placeholder="@username" />
-            <button>Buscar</button>
-          </div>
-
-          <div className="perfil">
-            <img
-              src="https://avatars.githubusercontent.com/u/126275223?s=96&v=4"
-              className="profile"
-              alt="imagem de perfil"
+            <input
+              name="usuario"
+              value={user}
+              onChange={(event) => setUser(event.target.value)}
+              placeholder="@username"
             />
-
-            <div>
-            <h3>Cauã Ribeiro</h3>
-            <span>@Cabayer915</span>
-            <p>Descrição</p>
-            </div>
-
+            <button onClick={handleGetData}>Buscar</button>
           </div>
+          {currentUser?.name ? (
+            <>
+              <div className="perfil">
+                <img
+                  src={currentUser.avatar_url}
+                  className="profile"
+                  alt="imagem de perfil"
+                />
 
-          <hr />
+                <div>
+                  <h3>{currentUser.name}</h3>
+                  <span>@{currentUser.login}</span>
+                  <p>{currentUser.bio}</p>
+                </div>
+              </div>
 
-          <div>
-            <h4 className="repositorio">Repositórios</h4>
-            <ItemList title={"werref"} description={"wweewewregty"} />
-            <ItemList title={"werref"} description={"wweewewregty"} />
-            <ItemList title={"werref"} description={"wweewewregty"} />
-          </div>
+              <hr />
+            </>
+          ) : null}
+
+          {repo?.length ? (
+            <>
+              <div>
+                <h4 className="repositorio">Repositórios</h4>
+                {repo.map(rep => (
+                  <ItemList title={rep.name} description={rep.description} />
+                ))}
+              </div>
+            </>
+          ) : null}
 
         </div>
       </div>
